@@ -20,7 +20,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-default-secret')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1','edusync-5jgu.onrender.com', ).split(',')
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS',
+    'localhost,127.0.0.1,edusync-5jgu.onrender.com'
+).split(',')
 
 # Application definition
 INSTALLED_APPS = [
