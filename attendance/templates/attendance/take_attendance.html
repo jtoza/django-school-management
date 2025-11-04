@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load custom_filters %} 
+{% block content %}
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <div>
+      <h5 class="mb-0">Take Attendance - {{ register.student_class }} - {{ register.date }}</h5>
+      <small>{{ register.term }} {{ register.session }}</small>
+    </div>
+    <a href="{% url 'attendance:register_detail' register.pk %}" class="btn btn-secondary btn-sm">Back</a>
+  </div>
+  <form method="post">{% csrf_token %}
+  <div class="card-body p-0">
+    <table class="table table-sm mb-0">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Status</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        {% with e=entries.s.id %}
+        <tr>
+          <td>{{ s }}</td>
+          <td>
+            <select name="status_{{ s.id }}" class="form-control form-control-sm">
+              {% for value,label in status_choices %}
+              <option value="{{ value }}" {% if e and e.status == value %}selected{% elif not e and value == 'P' %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </td>
+          <td><input type="text" class="form-control form-control-sm" name="remarks_{{ s.id }}" value="{% if e %}{{ e.remarks }}{% endif %}"></td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary">Save Attendance</button>
+  </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+  {% if object %}
+    Update {{ object }}
+  {% else %}
+    Add new student
+  {% endif %}
+
+{% endblock title %}
+
+
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  {% include 'corecode/form_snippet.html' %}
+
+  <div class="card mt-3">
+    <div class="card-header">Guardian & Contacts</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-4">{{ form.guardian_name.label_tag }} {{ form.guardian_name }}</div>
+        <div class="form-group col-md-4">{{ form.relationship.label_tag }} {{ form.relationship }}</div>
+        <div class="form-group col-md-4">{{ form.guardian_phone.label_tag }} {{ form.guardian_phone }}</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">{{ form.guardian_email.label_tag }} {{ form.guardian_email }}</div>
+        <div class="form-group col-md-6">{{ form.emergency_contact.label_tag }} {{ form.emergency_contact }}</div>
+      </div>
+      <div class="form-group">{{ form.pickup_authorized.label_tag }} {{ form.pickup_authorized }}</div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">Medical</div>
+    <div class="card-body">
+      <div class="form-group">{{ form.medical_notes.label_tag }} {{ form.medical_notes }}</div>
+      <div class="form-group">{{ form.allergies.label_tag }} {{ form.allergies }}</div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">House & Services</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-4">{{ form.house.label_tag }} {{ form.house }}</div>
+        <div class="form-group col-md-4">{{ form.transport_opt_in.label_tag }} {{ form.transport_opt_in }}</div>
+        <div class="form-group col-md-4">{{ form.lunch_opt_in.label_tag }} {{ form.lunch_opt_in }}</div>
+      </div>
+    </div>
+  </div>
+
+  {% if object %}
+    <input type="submit" class="btn btn-primary" value="Update Record">
+  {% else %}
+    <input type="submit" class="btn btn-primary" value="Add new student">
+  {% endif %}
+</form>
+
+
+{% endblock content %}
