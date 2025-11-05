@@ -1,1 +1,75 @@
-[{"model": "auth.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$1000000$0yUPYHPHCOqB1qCwrzEWGp$y+1gm+WDeWuP60uwcpOY0FKMg7Oz2eY2z5FhVzJh8fQ=", "last_login": null, "is_superuser": true, "username": "admin", "first_name": "", "last_name": "", "email": "admin@schoolapp.com", "is_staff": true, "is_active": true, "date_joined": "2025-11-04T10:19:03.014Z", "groups": [], "user_permissions": []}}, {"model": "auth.user", "pk": 2, "fields": {"password": "pbkdf2_sha256$1000000$6mUo2RNWz0cwVBUoRiU9jL$J4TSOWSqzUXxG+8i617f4bn/FQ0gbszInvLMKB3p2g8=", "last_login": "2025-11-04T10:23:45.519Z", "is_superuser": true, "username": "greenbells", "first_name": "", "last_name": "", "email": "jnlearner22@gmail.com", "is_staff": true, "is_active": true, "date_joined": "2025-11-04T10:23:08.109Z", "groups": [], "user_permissions": []}}, {"model": "sessions.session", "pk": "aaey7vryvo5ur3rnznwlmtldokbrtegk", "fields": {"session_data": ".eJxVjEsKwjAUAO-StQSb1nxcuu8ZwvvFVCWBpl2Jd5dAF7qdGeatIuxbjnuTNS6srsqo0y9DoKeULvgB5V411bKtC-qe6MM2PVeW1-1o_wYZWu7bQIQjhtHLBEziU7JySROPAzswiUBQIBgbeBAkkbMJTGTYO-vQJvX5Ai47OfM:1vGHrm:UlfADV-WQiPpkoWXhkxl3Np68BZ_91IWZOSeOqHL38o", "expire_date": "2025-11-04T17:18:34.827Z"}}, {"model": "corecode.siteconfig", "pk": 1, "fields": {"key": "school_name", "value": "My School"}}, {"model": "corecode.siteconfig", "pk": 2, "fields": {"key": "school_slogan", "value": "A great school"}}, {"model": "corecode.siteconfig", "pk": 3, "fields": {"key": "school_address", "value": "Lagos, Nigeria"}}, {"model": "corecode.academicsession", "pk": 1, "fields": {"name": "2019/2020", "current": false}}, {"model": "corecode.academicsession", "pk": 2, "fields": {"name": "2025 Term 1", "current": true}}, {"model": "corecode.academicterm", "pk": 1, "fields": {"name": "1st Term", "current": true}}, {"model": "corecode.academicterm", "pk": 2, "fields": {"name": "2nd Term", "current": false}}, {"model": "corecode.academicterm", "pk": 3, "fields": {"name": "3rd Term", "current": false}}, {"model": "corecode.subject", "pk": 1, "fields": {"name": "Mathematics"}}, {"model": "corecode.subject", "pk": 2, "fields": {"name": "English"}}, {"model": "corecode.subject", "pk": 3, "fields": {"name": "pretechnical"}}, {"model": "corecode.subject", "pk": 4, "fields": {"name": "science"}}, {"model": "corecode.subject", "pk": 5, "fields": {"name": "social studies"}}, {"model": "corecode.subject", "pk": 6, "fields": {"name": "music"}}, {"model": "corecode.subject", "pk": 7, "fields": {"name": "creative arts"}}, {"model": "corecode.subject", "pk": 8, "fields": {"name": "physical education"}}, {"model": "corecode.studentclass", "pk": 1, "fields": {"name": "PP 1"}}, {"model": "corecode.studentclass", "pk": 2, "fields": {"name": "PP2"}}, {"model": "corecode.studentclass", "pk": 3, "fields": {"name": "grade 1"}}, {"model": "corecode.studentclass", "pk": 4, "fields": {"name": "grade 2"}}, {"model": "corecode.studentclass", "pk": 5, "fields": {"name": "grade 3"}}, {"model": "corecode.studentclass", "pk": 6, "fields": {"name": "grade 4"}}, {"model": "corecode.studentclass", "pk": 7, "fields": {"name": "grade 5"}}, {"model": "corecode.studentclass", "pk": 8, "fields": {"name": "grade 6"}}, {"model": "corecode.studentclass", "pk": 9, "fields": {"name": "grade 7"}}, {"model": "corecode.studentclass", "pk": 10, "fields": {"name": "grade 8"}}, {"model": "corecode.studentclass", "pk": 11, "fields": {"name": "grade 9"}}, {"model": "corecode.studentclass", "pk": 12, "fields": {"name": "Form 1"}}, {"model": "corecode.studentclass", "pk": 13, "fields": {"name": "Form 2"}}, {"model": "corecode.studentclass", "pk": 14, "fields": {"name": "Form 3"}}, {"model": "corecode.studentclass", "pk": 15, "fields": {"name": "Form 4"}}]
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$examplehash$examplehashedpassword",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@schoolapp.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-11-04T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "corecode.siteconfig",
+    "pk": 1,
+    "fields": {"key": "school_name", "value": "My School"}
+  },
+  {
+    "model": "corecode.siteconfig",
+    "pk": 2,
+    "fields": {"key": "school_slogan", "value": "A great school"}
+  },
+  {
+    "model": "corecode.siteconfig",
+    "pk": 3,
+    "fields": {"key": "school_address", "value": "Lagos, Nigeria"}
+  },
+  {
+    "model": "corecode.academicsession",
+    "pk": 1,
+    "fields": {"name": "2025/2026", "current": true}
+  },
+  {
+    "model": "corecode.academicterm",
+    "pk": 1,
+    "fields": {"name": "1st Term", "current": true}
+  },
+  {
+    "model": "corecode.academicterm",
+    "pk": 2,
+    "fields": {"name": "2nd Term", "current": false}
+  },
+  {
+    "model": "corecode.academicterm",
+    "pk": 3,
+    "fields": {"name": "3rd Term", "current": false}
+  },
+  {
+    "model": "corecode.subject",
+    "pk": 1,
+    "fields": {"name": "Mathematics"}
+  },
+  {
+    "model": "corecode.subject",
+    "pk": 2,
+    "fields": {"name": "English"}
+  },
+  {
+    "model": "corecode.studentclass",
+    "pk": 1,
+    "fields": {"name": "JSS 1"}
+  },
+  {
+    "model": "corecode.studentclass",
+    "pk": 2,
+    "fields": {"name": "JSS 2"}
+  }
+]
