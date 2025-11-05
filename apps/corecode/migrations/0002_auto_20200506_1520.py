@@ -7,51 +7,46 @@ from django.contrib.auth.models import User
 def default_site_config(apps, schema_editor):
     """Default site configurations"""
 
-    User.objects.create_superuser("admin", "admin@schoolapp.com", "admin123")
+    # Create superuser if not exists
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser("admin", "admin@schoolapp.com", "admin123")
 
+    # SiteConfig entries
     Config = apps.get_model("corecode", "SiteConfig")
-    Config.objects.bulk_create(
-        [
-            Config(key="school_name", value="My School"),
-            Config(key="school_slogan", value="A great school"),
-            Config(key="school_address", value="Lagos, Nigeria"),
-        ]
-    )
+    for key, value in [
+        ("school_name", "My School"),
+        ("school_slogan", "A great school"),
+        ("school_address", "Lagos, Nigeria"),
+    ]:
+        Config.objects.get_or_create(key=key, defaults={"value": value})
 
+    # AcademicSession
     Session = apps.get_model("corecode", "AcademicSession")
-    Session.objects.bulk_create(
-        [
-            Session(name="2019/2020", current=True),
-        ]
-    )
+    Session.objects.get_or_create(name="2019/2020", defaults={"current": True})
 
+    # AcademicTerm
     Term = apps.get_model("corecode", "AcademicTerm")
-    Term.objects.bulk_create(
-        [
-            Term(name="1st Term", current=True),
-            Term(name="2nd Term", current=False),
-            Term(name="3rd Term", current=False),
-        ]
-    )
+    for name, current in [
+        ("1st Term", True),
+        ("2nd Term", False),
+        ("3rd Term", False),
+    ]:
+        Term.objects.get_or_create(name=name, defaults={"current": current})
 
+    # Subjects
     Subject = apps.get_model("corecode", "Subject")
-    Subject.objects.bulk_create(
-        [
-            Subject(name="Mathematics"),
-            Subject(name="English"),
-        ]
-    )
+    for name in ["Mathematics", "English"]:
+        Subject.objects.get_or_create(name=name)
 
+    # Student Classes
     StudentClass = apps.get_model("corecode", "StudentClass")
-    StudentClass.objects.bulk_create(
-        [
-            StudentClass(name="JSS 1"),
-            StudentClass(name="JSS 2"),
-        ]
-    )
+    for name in ["JSS 1", "JSS 2"]:
+        StudentClass.objects.get_or_create(name=name)
 
 
 class Migration(migrations.Migration):
+
+    atomic = False  # Prevent TransactionManagementError
 
     dependencies = [
         ("corecode", "0001_initial"),
