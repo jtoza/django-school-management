@@ -46,14 +46,13 @@
         </li>
       </ul>
 
-
-
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-        <!-- Notifications Dropdown Menu -->
+        <!-- User Authentication -->
+        {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-user"></i>
+            <i class="far fa-user"></i> {{ user.username }}
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
@@ -65,6 +64,19 @@
             </a>
           </div>
         </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signup' %}">
+            <i class="fas fa-user-plus"></i> Sign Up
+          </a>
+        </li>
+        {% endif %}
+        
         <li class="nav-item">
           <a class="nav-link" data-widget="control-sidebar" data-slide="true"
             href="#" role="button"><i class="fas fa-th-large"></i></a>
@@ -206,6 +218,31 @@
                 </li>
               </ul>
             </li>
+
+            <!-- Authentication Section -->
+            <li class="nav-header">Authentication</li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link">
+                <i class="nav-icon fas fa-sign-in-alt"></i>
+                <p>Login</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'signup' %}" class="nav-link">
+                <i class="nav-icon fas fa-user-plus"></i>
+                <p>Sign Up</p>
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'logout' %}" class="nav-link">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
+                <p>Logout</p>
+              </a>
+            </li>
+            {% endif %}
+
             <li class="nav-item">
               <a href="{% url 'configs' %}" class="nav-link">
                 <i class="nav-icon fas fa-cog"></i>
@@ -214,7 +251,6 @@
                 </p>
               </a>
             </li>
-
 
           </ul>
         </nav>

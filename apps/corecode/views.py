@@ -6,6 +6,8 @@ from django.shortcuts import HttpResponseRedirect, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, View
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from .forms import (
     AcademicSessionForm,
@@ -142,7 +144,7 @@ class TermUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             )
             if not terms:
                 messages.warning(self.request, "You must set a term to current.")
-                return redirect("term")
+                return redirect("terms")  # Fixed: was "term", should be "terms"
         return super().form_valid(form)
 
 
@@ -239,33 +241,77 @@ class SubjectDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class CurrentSessionAndTermView(LoginRequiredMixin, View):
-    """Current SEssion and Term"""
+    """Current Session and Term"""
 
     form_class = CurrentSessionForm
     template_name = "corecode/current_session.html"
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class(
-            initial={
-                "current_session": AcademicSession.objects.get(current=True),
-                "current_term": AcademicTerm.objects.get(current=True),
-            }
-        )
+        try:
+            current_session = AcademicSession.objects.get(current=True)
+            current_term = AcademicTerm.objects.get(current=True)
+            form = self.form_class(
+                initial={
+                    "current_session": current_session,
+                    "current_term": current_term,
+                }
+            )
+        except (AcademicSession.DoesNotExist, AcademicTerm.DoesNotExist):
+            form = self.form_class()
+            messages.warning(request, "Please set current session and term first.")
+        
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(
-            request.POST,
-            initial={
-                "current_session": AcademicSession.objects.get(current=True),
-                "current_term": AcademicTerm.objects.get(current=True),
-            }
-        )
+        form = self.form_class(request.POST)
         if form.is_valid():
             session = form.cleaned_data["current_session"]
             term = form.cleaned_data["current_term"]
             AcademicSession.objects.filter(name=session).update(current=True)
             AcademicSession.objects.exclude(name=session).update(current=False)
             AcademicTerm.objects.filter(name=term).update(current=True)
+            AcademicTerm.objects.exclude(name=term).update(current=False)
+            messages.success(request, "Current session and term updated successfully.")
 
         return render(request, self.template_name, {"form": form})
+
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Account created successfully!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f'Welcome back, {username}!')
+                return redirect('home')
+            else:
+                messages.error(request, 'Invalid username or password.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, 'You have been logged out successfully.')
+    return redirect('login')  # Redirect to login page after logout
