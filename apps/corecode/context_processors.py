@@ -1,27 +1,32 @@
 from .models import AcademicSession, AcademicTerm, SiteConfig
 
-
 def site_defaults(request):
-    # Safely get current session
+    contexts = {}
+    
+    # Safely get current session - with multiple exception handling
     try:
         current_session = AcademicSession.objects.get(current=True)
-        current_session_name = current_session.name
+        contexts["current_session"] = current_session.name
     except AcademicSession.DoesNotExist:
-        current_session_name = "No Session Set"
+        contexts["current_session"] = "No Session Set"
+    except Exception as e:
+        contexts["current_session"] = "No Session Set"
 
-    # Safely get current term
+    # Safely get current term - with multiple exception handling
     try:
         current_term = AcademicTerm.objects.get(current=True)
-        current_term_name = current_term.name
+        contexts["current_term"] = current_term.name
     except AcademicTerm.DoesNotExist:
-        current_term_name = "No Term Set"
+        contexts["current_term"] = "No Term Set"
+    except Exception as e:
+        contexts["current_term"] = "No Term Set"
 
-    vals = SiteConfig.objects.all()
-    contexts = {
-        "current_session": current_session_name,
-        "current_term": current_term_name,
-    }
-    for val in vals:
-        contexts[val.key] = val.value
+    # Safely get site config
+    try:
+        vals = SiteConfig.objects.all()
+        for val in vals:
+            contexts[val.key] = val.value
+    except Exception as e:
+        pass  # Ignore all site config errors
 
     return contexts

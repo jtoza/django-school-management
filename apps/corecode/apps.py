@@ -1,8 +1,9 @@
 from django.apps import AppConfig
 
-
 class CorecodeConfig(AppConfig):
-    name = "apps.corecode"
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'apps.corecode'
 
     def ready(self):
-        import apps.corecode.signals
+        # Import and connect the signals
+        from . import models
