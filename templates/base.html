@@ -9,58 +9,274 @@
 
   <title>{{ school_name | default:"MySchool" }}</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="{% static 'dist/img/favicon.ico' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'dist/img/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'dist/img/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'dist/img/favicon-16x16.png' %}">
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
   <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet"
-    href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
   <link rel="stylesheet" href="{% static 'plugins/Datatables/datatables.min.css' %}" />
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
   <!-- Google Font: Source Sans Pro -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+  <style>
+    /* Custom Responsive Styles */
+    @media (max-width: 768px) {
+      .navbar-nav .nav-item.d-none.d-sm-inline-block {
+        display: inline-block !important;
+      }
+      .main-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .sidebar-open .main-sidebar {
+        transform: translateX(0);
+      }
+      .brand-link {
+        text-align: center;
+        font-size: 1.1rem;
+      }
+      .nav-sidebar > .nav-item > .nav-link {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+      }
+      .content-header h1 {
+        font-size: 1.5rem;
+      }
+      .breadcrumb {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .navbar-nav .nav-link {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.85rem;
+      }
+      .dropdown-menu {
+        font-size: 0.9rem;
+      }
+      .card-body {
+        padding: 1rem;
+      }
+      .content-wrapper {
+        padding: 0.5rem;
+      }
+    }
+
+    /* Custom Brand Styling */
+    .brand-link {
+      font-weight: bold;
+      font-size: 1.3rem;
+      text-align: center;
+      padding: 0.8rem 0.5rem;
+      border-bottom: 2px solid #4b545c;
+    }
+
+    .brand-link:hover {
+      color: #fff !important;
+      text-decoration: none;
+    }
+
+    /* Enhanced Sidebar Styling */
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+      background-color: #007bff;
+      border-left: 4px solid #0056b3;
+    }
+
+    .nav-sidebar > .nav-item > .nav-link {
+      margin-bottom: 2px;
+      border-radius: 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-sidebar > .nav-item > .nav-link:hover {
+      background-color: #4b545c;
+      padding-left: 1.5rem;
+    }
+
+    .nav-header {
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      color: #6c757d;
+      border-bottom: 1px solid #4b545c;
+    }
+
+    /* Enhanced Navbar Styling */
+    .navbar-white {
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      border-bottom: 1px solid #dee2e6;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar-nav .nav-link {
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #007bff !important;
+    }
+
+    /* Card Enhancements */
+    .card {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-bottom: 1px solid #dee2e6;
+      font-weight: 600;
+    }
+
+    /* Content Header Styling */
+    .content-header h1 {
+      color: #2c3e50;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .breadcrumb {
+      background: transparent;
+      padding: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile Menu Toggle Enhancement */
+    .navbar-toggler {
+      border: none;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .navbar-toggler:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+
+    /* Dropdown Menu Enhancement */
+    .dropdown-menu {
+      border: none;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .dropdown-item {
+      padding: 0.75rem 1.5rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f8f9fa;
+      color: #007bff;
+    }
+
+    /* Session and Term Info Styling */
+    .session-info {
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 0 0.2rem;
+    }
+
+    /* Loading State */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    /* Print Styles */
+    @media print {
+      .navbar, .main-sidebar, .content-header, .breadcrumb {
+        display: none !important;
+      }
+      .content-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .card {
+        box-shadow: none !important;
+        border: none !important;
+      }
+    }
+  </style>
 </head>
 
-<body
-  class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-              class="fas fa-bars"></i></a>
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+            <i class="fas fa-bars"></i>
+          </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{% url 'home' %} " class="nav-link"><i class="fa fa-home"></i></a>
+          <a href="{% url 'home' %}" class="nav-link">
+            <i class="fa fa-home"></i> Home
+          </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{% url 'current-session' %}" class="nav-link">Session: {{ current_session }}</a>
+          <span class="nav-link session-info">
+            <i class="fas fa-calendar-alt"></i> Session: {{ current_session }}
+          </span>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{% url 'current-session' %}" class="nav-link">Term: {{ current_term }}</a>
+          <span class="nav-link session-info">
+            <i class="fas fa-clock"></i> Term: {{ current_term }}
+          </span>
         </li>
       </ul>
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
+        <!-- Mobile Session Info -->
+        <li class="nav-item d-sm-none">
+          <span class="nav-link">
+            <small>{{ current_session }} | Term {{ current_term }}</small>
+          </span>
+        </li>
+
         <!-- User Authentication -->
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-user"></i> {{ user.username }}
+            <i class="far fa-user-circle"></i> {{ user.username }}
+            <i class="fas fa-caret-down ml-1"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">
+              Welcome, {{ user.username }}
+            </span>
+            <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
               <i class="fas fa-user mr-2"></i> Profile
             </a>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-cog mr-2"></i> Settings
+            </a>
             <div class="dropdown-divider"></div>
             <a href="{% url 'logout' %}" class="dropdown-item">
-              <i class="fas fa-sign-out"></i> Sign out
+              <i class="fas fa-sign-out-alt mr-2"></i> Sign out
             </a>
           </div>
         </li>
@@ -77,9 +293,10 @@
         </li>
         {% endif %}
         
-        <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true"
-            href="#" role="button"><i class="fas fa-th-large"></i></a>
+        <li class="nav-item d-none d-sm-block">
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <i class="fas fa-th-large"></i>
+          </a>
         </li>
       </ul>
     </nav>
@@ -88,139 +305,118 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="{% url 'home' %}" class="brand-link">{{ school_name | default:"MySchool" }}</a>
+      <a href="{% url 'home' %}" class="brand-link text-center">
+        <i class="fas fa-graduation-cap brand-icon mx-2"></i>
+        <span class="brand-text font-weight-bold">{{ school_name | default:"MySchool" }}</span>
+      </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column"
-            data-widget="treeview" role="menu" data-accordion="false">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Main Navigation -->
             <li class="nav-item">
               <a href="{% url 'student-list' %}" class="nav-link">
                 <i class="nav-icon fas fa-graduation-cap"></i>
-                <p>
-                  Students
-                </p>
+                <p>Students</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'staff-list' %}" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
-                <p>
-                  Member of Staff
-                </p>
+                <p>Staff Members</p>
               </a>
             </li>
 
+            <!-- Finance Section -->
             <li class="nav-header">Finance</li>
             <li class="nav-item">
               <a href="{% url 'invoice-list' %}" class="nav-link">
-                <i class="nav-icon fas fa-money-bill-alt"></i>
-                <p>
-                  Invoices
-                </p>
+                <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                <p>Invoices</p>
               </a>
             </li>
-            <li class="nav-header">Results</li>
+
+            <!-- Results Section -->
+            <li class="nav-header">Results & Reports</li>
             <li class="nav-item">
               <a href="{% url 'create-result' %}" class="nav-link">
-                <i class="nav-icon fas fa-money-bill-alt"></i>
-                <p>
-                  Create Results
-                </p>
+                <i class="nav-icon fas fa-plus-circle"></i>
+                <p>Create Results</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'edit-results' %}" class="nav-link">
-                <i class="nav-icon fas fa-money-bill-alt"></i>
-                <p>
-                  Update Results
-                </p>
+                <i class="nav-icon fas fa-edit"></i>
+                <p>Update Results</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'view-results' %}" class="nav-link">
-                <i class="nav-icon fas fa-money-bill-alt"></i>
-                <p>
-                  View Results
-                </p>
+                <i class="nav-icon fas fa-eye"></i>
+                <p>View Results</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'student-performance' %}" class="nav-link">
                 <i class="nav-icon fas fa-chart-line"></i>
-                <p>
-                  Performance Trend
-                </p>
+                <p>Performance Trend</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" onclick="reportCardPrompt(event)">
-                <i class="nav-icon fas fa-file-alt"></i>
-                <p>
-                  Report Card
-                </p>
+                <i class="nav-icon fas fa-file-pdf"></i>
+                <p>Report Card</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" onclick="classSheetPrompt(event)">
                 <i class="nav-icon fas fa-print"></i>
-                <p>
-                  Class Report Sheet
-                </p>
+                <p>Class Report Sheet</p>
               </a>
             </li>
 
-            <li class="nav-header">Others</li>
+            <!-- Management Section -->
+            <li class="nav-header">Management</li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
+                <i class="nav-icon fas fa-cogs"></i>
                 <p>
-                  Management
+                  System Settings
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{% url 'sessions' %}" class="nav-link">
-                    <i class="nav-icon fas fa-bars"></i>
-                    <p>
-                      Sessions
-                    </p>
+                    <i class="nav-icon fas fa-calendar-alt"></i>
+                    <p>Sessions</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{% url 'terms' %}" class="nav-link">
-                    <i class="nav-icon fas fa-bars"></i>
-                    <p>
-                      Terms
-                      <i class="right"></i>
-                    </p>
+                    <i class="nav-icon fas fa-clock"></i>
+                    <p>Terms</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{% url 'subjects' %}" class="nav-link">
-                    <i class="nav-icon fas fa-bars"></i>
-                    <p>
-                      Subjects
-                    </p>
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>Subjects</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{% url 'classes' %}" class="nav-link">
-                    <i class="nav-icon fas fa-bars"></i>
-                    <p>
-                      Classes
-                    </p>
+                    <i class="nav-icon fas fa-chalkboard"></i>
+                    <p>Classes</p>
                   </a>
                 </li>
               </ul>
             </li>
 
             <!-- Authentication Section -->
-            <li class="nav-header">Authentication</li>
+            <li class="nav-header">Account</li>
             {% if not user.is_authenticated %}
             <li class="nav-item">
               <a href="{% url 'login' %}" class="nav-link">
@@ -243,15 +439,13 @@
             </li>
             {% endif %}
 
+            <!-- Settings -->
             <li class="nav-item">
               <a href="{% url 'configs' %}" class="nav-link">
                 <i class="nav-icon fas fa-cog"></i>
-                <p>
-                  Settings
-                </p>
+                <p>System Settings</p>
               </a>
             </li>
-
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -263,9 +457,9 @@
     <div class="content-wrapper">
       <section class="content-header">
         <div class="container-fluid">
-          <div class="row mb-1">
+          <div class="row mb-2">
             <div class="col-sm-8">
-              <h1>{% block title %}{% endblock title %}</h1>
+              <h1 class="page-title">{% block title %}{% endblock title %}</h1>
             </div>
             <div class="col-sm-4">
               <ol class="breadcrumb float-sm-right">
@@ -275,109 +469,126 @@
           </div>
         </div><!-- /.container-fluid -->
       </section>
+
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
               {% block fullcard %}
               <div class="card">
                 {% block content-header %}{% endblock content-header %}
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      {% block content %}
-
-                      {% endblock content %}
+                      {% block content %}{% endblock content %}
                     </div>
                   </div>
-                  <!-- /.row -->
                 </div>
-                <!-- ./card-body -->
-
               </div>
               {% endblock fullcard %}
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
         </div>
-        <!--/. container-fluid -->
       </section>
-      <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Control sidebar content goes here -->
+      <div class="p-3">
+        <h5>Quick Settings</h5>
+        <p>Control sidebar content</p>
+      </div>
     </aside>
-    <!-- /.control-sidebar -->
-
 
   </div>
-  <!-- ./wrapper -->
 
   <!-- REQUIRED SCRIPTS -->
-  <!-- jQuery -->
   <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'dist/js/jquery.formset.js' %}"> </script>
-  <!-- Bootstrap -->
+  <script src="{% static 'dist/js/jquery.formset.js' %}"></script>
   <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
-  <!-- overlayScrollbars -->
-  <script
-    src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
-
-  <!-- AdminLTE App -->
+  <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
   <script src="{% static 'dist/js/adminlte.js' %}"></script>
-
-  <!-- OPTIONAL SCRIPTS -->
   <script src="{% static 'dist/js/demo.js' %}"></script>
+  <script src="{% static 'plugins/Datatables/datatables.min.js' %}"></script>
 
   {% if messages %}
   {% for message in messages %}
   <script type=text/javascript>
-    toastr.options.progressBar = true;
-    toastr.{{ message.tags }}('{{ message }}')
+    toastr.options = {
+      progressBar: true,
+      closeButton: true,
+      timeOut: 5000,
+      positionClass: "toast-top-right"
+    };
+    toastr.{{ message.tags }}('{{ message }}');
   </script>
   {% endfor %}
   {% endif %}
 
-  <script src="{% static 'plugins/Datatables/datatables.min.js' %}"></script>
-
   <script>
+    // Enhanced clickable rows
     (function ($) {
       $('.clickable-row').css('cursor', 'pointer');
       $(".clickable-row").click(function () {
         window.location = $(this).data("href");
       });
-    })(jQuery)
+    })(jQuery);
 
-  </script>
+    // Mobile menu handling
+    $(document).ready(function() {
+      // Toggle sidebar on mobile
+      $('[data-widget="pushmenu"]').click(function() {
+        $('body').toggleClass('sidebar-open');
+      });
 
-  {% block morejs %}
+      // Close sidebar when clicking outside on mobile
+      $(document).click(function(event) {
+        if ($(window).width() < 768) {
+          if (!$(event.target).closest('.main-sidebar').length && !$(event.target).closest('[data-widget="pushmenu"]').length) {
+            $('body').removeClass('sidebar-open');
+          }
+        }
+      });
+    });
 
-  {% endblock morejs %}
-
-  <script>
     function reportCardPrompt(e){
       e.preventDefault();
       var id = prompt('Enter Student ID (numeric)');
       if(!id) return;
+      if(isNaN(id)) {
+        toastr.error('Please enter a valid numeric Student ID');
+        return;
+      }
       window.location.href = '/result/report-card/' + id + '/';
     }
+
     function classSheetPrompt(e){
       e.preventDefault();
       var id = prompt('Enter Class ID (numeric)');
       if(!id) return;
+      if(isNaN(id)) {
+        toastr.error('Please enter a valid numeric Class ID');
+        return;
+      }
       window.location.href = '/result/class-sheet/' + id + '/';
     }
+
+    // Loading state for buttons
+    // Improved loading state for forms
+$(document).on('submit', 'form', function() {
+  var $form = $(this);
+  var $submitBtn = $form.find('button[type="submit"]');
+  
+  // Only show loading if form is valid
+  if ($form[0].checkValidity()) {
+    $submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Saving...');
+  }
+});
   </script>
 
-
-
+  {% block morejs %}{% endblock morejs %}
 </body>
-
 </html>
