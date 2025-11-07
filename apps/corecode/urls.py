@@ -1,4 +1,6 @@
 from django.urls import path
+from .views_class_management import teacher_class_list, class_detail
+
 
 from .views import (
     ClassCreateView,
@@ -67,4 +69,6 @@ urlpatterns = [
     path("signup/", signup_view, name="signup"),
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
+    path('teacher/classes/', teacher_class_list, name='teacher-class-list'),
+    path('class/<int:class_id>/', class_detail, name='class-detail'),
 ]

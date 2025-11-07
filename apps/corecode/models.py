@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
 from django.apps import AppConfig
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -88,3 +89,18 @@ def create_default_data(sender, **kwargs):
                 
         except Exception as e:
             print(f"Error creating default data: {e}")
+
+
+
+class ClassManagement(models.Model):
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'groups__name': 'Teachers'})
+    student_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True)
+    assigned_date = models.DateField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = ['teacher', 'student_class']
+        verbose_name_plural = "Class Management"
+    
+    def __str__(self):
+        return f"{self.teacher.username} - {self.student_class.name}"
