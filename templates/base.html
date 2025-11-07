@@ -27,120 +27,239 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   
   <style>
-    /* Custom Responsive Styles */
+    /* ===== ENHANCED RESPONSIVE STYLES ===== */
+    
+    /* Mobile-First Breakpoints */
+    @media (max-width: 576px) {
+      .navbar-nav .nav-link {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.85rem;
+      }
+      
+      .dropdown-menu {
+        font-size: 0.9rem;
+        min-width: 200px;
+      }
+      
+      .card-body {
+        padding: 1rem;
+      }
+      
+      .content-wrapper {
+        padding: 0.5rem;
+      }
+      
+      /* Mobile-specific navbar fixes */
+      .mobile-academic-info {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        text-align: center;
+        margin: 0.2rem 0;
+        display: block;
+        line-height: 1.2;
+      }
+      
+      .navbar-mobile-compact {
+        flex-wrap: wrap;
+        min-height: auto;
+      }
+      
+      .navbar-mobile-compact .navbar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      
+      .mobile-user-info {
+        font-size: 0.8rem;
+        background: rgba(255,255,255,0.1);
+        padding: 0.3rem 0.6rem;
+        border-radius: 12px;
+        margin: 0.2rem;
+      }
+    }
+
     @media (max-width: 768px) {
       .navbar-nav .nav-item.d-none.d-sm-inline-block {
         display: inline-block !important;
       }
+      
       .main-sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s ease-in-out;
+        box-shadow: 3px 0 10px rgba(0,0,0,0.1);
       }
+      
       .sidebar-open .main-sidebar {
         transform: translateX(0);
       }
+      
       .brand-link {
         text-align: center;
         font-size: 1.1rem;
+        padding: 0.8rem 0.5rem;
       }
+      
       .nav-sidebar > .nav-item > .nav-link {
-        padding: 0.75rem 0.5rem;
+        padding: 0.8rem 0.6rem;
         font-size: 0.9rem;
+        border-left: 3px solid transparent;
       }
+      
       .content-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
       }
+      
       .breadcrumb {
         font-size: 0.8rem;
       }
+      
+      .mobile-nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1038;
+      }
+      
+      .sidebar-open .mobile-nav-overlay {
+        display: block;
+      }
+      
+      /* Tablet navbar adjustments */
+      .navbar-tablet .session-info {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+      }
     }
 
-    @media (max-width: 576px) {
-      .navbar-nav .nav-link {
-        padding: 0.5rem 0.3rem;
-        font-size: 0.85rem;
+    @media (min-width: 769px) and (max-width: 992px) {
+      .brand-link {
+        font-size: 1.1rem;
       }
-      .dropdown-menu {
+      
+      .nav-sidebar > .nav-item > .nav-link {
         font-size: 0.9rem;
-      }
-      .card-body {
-        padding: 1rem;
-      }
-      .content-wrapper {
-        padding: 0.5rem;
+        padding: 0.7rem 0.8rem;
       }
     }
 
-    /* Custom Brand Styling */
+    /* ===== ENHANCED STYLING ===== */
+    
+    /* Brand Styling */
     .brand-link {
-      font-weight: bold;
+      font-weight: 700;
       font-size: 1.3rem;
       text-align: center;
-      padding: 0.8rem 0.5rem;
+      padding: 0.9rem 0.5rem;
       border-bottom: 2px solid #4b545c;
+      background: linear-gradient(135deg, #343a40 0%, #495057 100%);
+      transition: all 0.3s ease;
     }
 
     .brand-link:hover {
       color: #fff !important;
       text-decoration: none;
+      background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+    }
+
+    .brand-icon {
+      color: #007bff;
+      font-size: 1.4rem;
+    }
+
+    /* Enhanced Navbar Styling */
+    .navbar-white {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border-bottom: 1px solid #dee2e6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      backdrop-filter: blur(10px);
+      min-height: 57px;
+    }
+
+    .navbar-nav .nav-link {
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 0.1rem;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #007bff !important;
+      background: rgba(0,123,255,0.1);
+    }
+
+    /* Session and Term Info Styling */
+    .session-info {
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+      color: white;
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin: 0 0.2rem;
+      box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+      border: 1px solid rgba(255,255,255,0.2);
+      white-space: nowrap;
     }
 
     /* Enhanced Sidebar Styling */
     .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
-      background-color: #007bff;
-      border-left: 4px solid #0056b3;
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+      border-left: 4px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,123,255,0.3);
     }
 
     .nav-sidebar > .nav-item > .nav-link {
       margin-bottom: 2px;
       border-radius: 0;
       transition: all 0.3s ease;
+      border-left: 3px solid transparent;
     }
 
     .nav-sidebar > .nav-item > .nav-link:hover {
       background-color: #4b545c;
-      padding-left: 1.5rem;
+      padding-left: 1.3rem;
+      border-left-color: #007bff;
     }
 
     .nav-header {
-      font-size: 0.85rem;
-      font-weight: bold;
+      font-size: 0.8rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      color: #6c757d;
+      margin-top: 1.2rem;
+      padding: 0.6rem 1rem;
+      color: #8fa0af;
       border-bottom: 1px solid #4b545c;
-    }
-
-    /* Enhanced Navbar Styling */
-    .navbar-white {
-      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-      border-bottom: 1px solid #dee2e6;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .navbar-nav .nav-link {
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .navbar-nav .nav-link:hover {
-      color: #007bff !important;
+      background: rgba(0,0,0,0.1);
     }
 
     /* Card Enhancements */
     .card {
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(0, 0, 0, 0.125);
-      border-radius: 0.5rem;
+      box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 0.75rem;
       margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
     }
 
     .card-header {
       background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
       border-bottom: 1px solid #dee2e6;
       font-weight: 600;
+      border-radius: 0.75rem 0.75rem 0 0 !important;
     }
 
     /* Content Header Styling */
@@ -148,6 +267,10 @@
       color: #2c3e50;
       font-weight: 700;
       margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .breadcrumb {
@@ -156,10 +279,26 @@
       font-size: 0.9rem;
     }
 
+    .breadcrumb-item a {
+      color: #6c757d;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .breadcrumb-item a:hover {
+      color: #007bff;
+    }
+
     /* Mobile Menu Toggle Enhancement */
     .navbar-toggler {
       border: none;
-      padding: 0.25rem 0.5rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-toggler:hover {
+      background: rgba(0,123,255,0.1);
     }
 
     .navbar-toggler:focus {
@@ -170,41 +309,67 @@
     /* Dropdown Menu Enhancement */
     .dropdown-menu {
       border: none;
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-      border-radius: 0.5rem;
+      box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+      border-radius: 0.75rem;
       margin-top: 0.5rem;
+      border: 1px solid rgba(0,0,0,0.05);
     }
 
     .dropdown-item {
-      padding: 0.75rem 1.5rem;
-      transition: background-color 0.3s ease;
+      padding: 0.7rem 1.2rem;
+      transition: all 0.3s ease;
+      border-radius: 0.5rem;
+      margin: 0.1rem 0.5rem;
+      width: auto;
     }
 
     .dropdown-item:hover {
-      background-color: #f8f9fa;
-      color: #007bff;
-    }
-
-    /* Session and Term Info Styling */
-    .session-info {
       background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
       color: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin: 0 0.2rem;
+      transform: translateX(5px);
+    }
+
+    .dropdown-header {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      font-weight: 600;
+      color: #495057;
     }
 
     /* Loading State */
     .loading {
       opacity: 0.7;
       pointer-events: none;
+      position: relative;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.8);
+      z-index: 1000;
+    }
+
+    /* Enhanced User Dropdown */
+    .user-dropdown .nav-link {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 25px;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid #dee2e6;
+    }
+
+    .user-dropdown .nav-link:hover {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white !important;
     }
 
     /* Print Styles */
     @media print {
-      .navbar, .main-sidebar, .content-header, .breadcrumb {
+      .navbar, .main-sidebar, .content-header, .breadcrumb,
+      .control-sidebar, .card-header .btn-tool {
         display: none !important;
       }
       .content-wrapper {
@@ -213,16 +378,81 @@
       }
       .card {
         box-shadow: none !important;
-        border: none !important;
+        border: 1px solid #ddd !important;
+        border-radius: 0 !important;
       }
+      .card-header {
+        background: #f8f9fa !important;
+        color: #000 !important;
+      }
+    }
+
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Enhanced Focus States */
+    .nav-link:focus,
+    .btn:focus,
+    .form-control:focus,
+    .dropdown-item:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    }
+
+    /* Better Table Responsiveness */
+    .table-responsive {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+
+    /* Mobile-specific improvements */
+    .mobile-optimized-nav {
+      flex-wrap: wrap;
+      padding: 0.3rem 0.5rem;
+    }
+
+    .mobile-optimized-nav .navbar-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .mobile-academic-compact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin: 0.2rem 0;
     }
   </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+
+    <!-- Navbar - Mobile Optimized -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light mobile-optimized-nav">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -230,42 +460,47 @@
             <i class="fas fa-bars"></i>
           </a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <li class="nav-item">
           <a href="{% url 'home' %}" class="nav-link">
-            <i class="fa fa-home"></i> Home
+            <i class="fa fa-home"></i>
+            <span class="d-none d-sm-inline">Home</span>
           </a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <span class="nav-link session-info">
-            <i class="fas fa-calendar-alt"></i> Session: {{ current_session }}
-          </span>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <span class="nav-link session-info">
-            <i class="fas fa-clock"></i> Term: {{ current_term }}
-          </span>
         </li>
       </ul>
 
+      <!-- Academic Info - Different layouts for different screens -->
+      <div class="d-none d-md-flex mx-auto">
+        <span class="session-info">
+          <i class="fas fa-calendar-alt"></i> Session: {{ current_session }}
+        </span>
+        <span class="session-info ml-2">
+          <i class="fas fa-clock"></i> Term: {{ current_term }}
+        </span>
+      </div>
+
+      <!-- Mobile Academic Info -->
+      <div class="d-md-none mobile-academic-compact">
+        <span class="mobile-academic-info">
+          <i class="fas fa-calendar-alt"></i> {{ current_session }}
+        </span>
+        <span class="mobile-academic-info">
+          <i class="fas fa-clock"></i> {{ current_term }}
+        </span>
+      </div>
+
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-        <!-- Mobile Session Info -->
-        <li class="nav-item d-sm-none">
-          <span class="nav-link">
-            <small>{{ current_session }} | Term {{ current_term }}</small>
-          </span>
-        </li>
-
         <!-- User Authentication -->
         {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown user-dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-user-circle"></i> {{ user.username }}
-            <i class="fas fa-caret-down ml-1"></i>
+            <i class="far fa-user-circle"></i>
+            <span class="d-none d-sm-inline">{{ user.username }}</span>
+            <i class="fas fa-caret-down ml-1 d-none d-sm-inline"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <span class="dropdown-item dropdown-header">
-              Welcome, {{ user.username }}
+              <i class="fas fa-user-circle mr-2"></i>Welcome, {{ user.username }}
             </span>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
@@ -283,21 +518,17 @@
         {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'login' %}">
-            <i class="fas fa-sign-in-alt"></i> Login
+            <i class="fas fa-sign-in-alt"></i>
+            <span class="d-none d-sm-inline">Login</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">
-            <i class="fas fa-user-plus"></i> Sign Up
+            <i class="fas fa-user-plus"></i>
+            <span class="d-none d-sm-inline">Sign Up</span>
           </a>
         </li>
         {% endif %}
-        
-        <li class="nav-item d-none d-sm-block">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-th-large"></i>
-          </a>
-        </li>
       </ul>
     </nav>
     <!-- /.navbar -->
@@ -537,19 +768,33 @@
       });
     })(jQuery);
 
-    // Mobile menu handling
+    // Enhanced mobile menu handling
     $(document).ready(function() {
       // Toggle sidebar on mobile
       $('[data-widget="pushmenu"]').click(function() {
         $('body').toggleClass('sidebar-open');
       });
 
+      // Close sidebar when clicking overlay on mobile
+      $('.mobile-nav-overlay').click(function() {
+        $('body').removeClass('sidebar-open');
+      });
+
       // Close sidebar when clicking outside on mobile
       $(document).click(function(event) {
         if ($(window).width() < 768) {
-          if (!$(event.target).closest('.main-sidebar').length && !$(event.target).closest('[data-widget="pushmenu"]').length) {
+          if (!$(event.target).closest('.main-sidebar').length && 
+              !$(event.target).closest('[data-widget="pushmenu"]').length &&
+              !$(event.target).closest('.mobile-nav-overlay').length) {
             $('body').removeClass('sidebar-open');
           }
+        }
+      });
+
+      // Handle window resize
+      $(window).resize(function() {
+        if ($(window).width() >= 768) {
+          $('body').removeClass('sidebar-open');
         }
       });
     });
@@ -576,17 +821,22 @@
       window.location.href = '/result/class-sheet/' + id + '/';
     }
 
-    // Loading state for buttons
-    // Improved loading state for forms
-$(document).on('submit', 'form', function() {
-  var $form = $(this);
-  var $submitBtn = $form.find('button[type="submit"]');
-  
-  // Only show loading if form is valid
-  if ($form[0].checkValidity()) {
-    $submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Saving...');
-  }
-});
+    // Enhanced loading state for forms
+    $(document).on('submit', 'form', function() {
+      var $form = $(this);
+      var $submitBtn = $form.find('button[type="submit"]');
+      
+      // Only show loading if form is valid
+      if ($form[0].checkValidity()) {
+        $submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-1"></i> Saving...');
+        
+        // Add loading class to form
+        $form.addClass('loading');
+      }
+    });
+
+    // Enhanced touch interactions for mobile
+    document.addEventListener('touchstart', function() {}, { passive: true });
   </script>
 
   {% block morejs %}{% endblock morejs %}
