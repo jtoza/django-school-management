@@ -776,19 +776,22 @@
   <script src="{% static 'dist/js/demo.js' %}"></script>
   <script src="{% static 'plugins/Datatables/datatables.min.js' %}"></script>
 
-  <!-- PWA Service Worker Registration -->
+  <!-- PWA Service Worker Registration - FIXED PATH -->
   <script>
     // Register service worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js')
+            navigator.serviceWorker.register('{% static "js/sw.js" %}')
                 .then(function(registration) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    console.log('✅ ServiceWorker registration successful with scope: ', registration.scope);
+                    console.log('📱 PWA is now installable!');
                 })
                 .catch(function(error) {
-                    console.log('ServiceWorker registration failed: ', error);
+                    console.log('❌ ServiceWorker registration failed: ', error);
                 });
         });
+    } else {
+        console.log('❌ Service Worker not supported in this browser');
     }
 
     // Detect if app is running in standalone mode
@@ -805,13 +808,13 @@
 
     // Listen for app installation
     window.addEventListener('beforeinstallprompt', (e) => {
-        console.log('PWA installation available');
+        console.log('🎉 PWA installation available!');
         // You can show an install button here if you want
     });
 
     // Listen for app installed
     window.addEventListener('appinstalled', (evt) => {
-        console.log('PWA was installed successfully');
+        console.log('🎊 PWA was installed successfully');
     });
   </script>
 
