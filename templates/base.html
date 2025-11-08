@@ -9,11 +9,26 @@
 
   <title>{{ school_name | default:"MySchool" }}</title>
 
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#007bff"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="{{ school_name|default:'MySchool' }}">
+  <meta name="description" content="School Management System - Students, Attendance, Results">
+  <meta name="keywords" content="school, management, students, attendance, results">
+
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{% static 'dist/img/favicon.ico' %}">
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'dist/img/apple-touch-icon.png' %}">
   <link rel="icon" type="image/png" sizes="32x32" href="{% static 'dist/img/favicon-32x32.png' %}">
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'dist/img/favicon-16x16.png' %}">
+
+  <!-- PWA Icons for Apple devices -->
+  <link rel="apple-touch-icon" href="{% static 'dist/img/apple-touch-icon.png' %}">
+  <link rel="apple-touch-startup-image" href="{% static 'dist/img/apple-touch-icon.png' %}">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="{% url 'manifest' %}">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
@@ -443,6 +458,14 @@
       width: 100%;
       margin: 0.2rem 0;
     }
+
+    /* PWA Standalone Mode Styles */
+    .pwa-standalone .navbar {
+      padding-top: env(safe-area-inset-top);
+    }
+    .pwa-standalone .content-wrapper {
+      padding-top: env(safe-area-inset-top);
+    }
   </style>
 </head>
 
@@ -752,6 +775,45 @@
   <script src="{% static 'dist/js/adminlte.js' %}"></script>
   <script src="{% static 'dist/js/demo.js' %}"></script>
   <script src="{% static 'plugins/Datatables/datatables.min.js' %}"></script>
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('ServiceWorker registration failed: ', error);
+                });
+        });
+    }
+
+    // Detect if app is running in standalone mode
+    function isRunningStandalone() {
+        return (window.matchMedia('(display-mode: standalone)').matches) || 
+               (window.navigator.standalone) || 
+               (document.referrer.includes('android-app://'));
+    }
+
+    // Add standalone class to body if running as PWA
+    if (isRunningStandalone()) {
+        document.body.classList.add('pwa-standalone');
+    }
+
+    // Listen for app installation
+    window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('PWA installation available');
+        // You can show an install button here if you want
+    });
+
+    // Listen for app installed
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('PWA was installed successfully');
+    });
+  </script>
 
   {% if messages %}
   {% for message in messages %}
